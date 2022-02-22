@@ -30,7 +30,6 @@ func IssueJWT(userId string, userRole string) (string, error) {
 func ValidateJWT(c *fiber.Ctx) error {
 	headers := c.GetReqHeaders()
 	authHeader := headers["Authorization"]
-
 	authToken := strings.Split(authHeader, " ")
 
 	if len(authToken) != 2 {
@@ -45,7 +44,6 @@ func ValidateJWT(c *fiber.Ctx) error {
 	})
 
 	if err != nil {
-		fmt.Println(err)
 		return c.SendStatus(403)
 	}
 
@@ -56,7 +54,6 @@ func ValidateJWT(c *fiber.Ctx) error {
 			c.Request().Header.Set("Userid", fmt.Sprintf("%s", claims["userId"]))
 			fmt.Println(c.GetReqHeaders())
 		}
-
 		return c.Next()
 	}
 
